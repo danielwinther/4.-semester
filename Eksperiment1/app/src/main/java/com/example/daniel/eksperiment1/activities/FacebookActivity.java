@@ -35,10 +35,10 @@ public class FacebookActivity extends Activity {
     }
 
     public void login(View view) {
-        new FacebookVenner().execute();
+        new FacebookAsync().execute();
     }
 
-    private class FacebookVenner extends AsyncTask<Void, Void, Void> {
+    private class FacebookAsync extends AsyncTask<Void, Void, Void> {
         private String title, email, password;
         private ArrayList<Facebook> arrayList = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class FacebookActivity extends Activity {
                 title = document.title();
                 Elements venner = document.select(".v.cb");
                 for (Element ven : venner) {
-                    arrayList.add(new com.example.daniel.eksperiment1.models.Facebook(ven.select(".v.m img").attr("abs:src"), ven.getElementsByClass("cc").text(), ven.select(".cd.ce").text(), ven.getElementsByClass("cc").attr("abs:href")));
+                    arrayList.add(new Facebook(ven.select(".v.m img").attr("abs:src"), ven.getElementsByClass("cc").text(), ven.select(".cd.ce").text(), ven.getElementsByClass("cc").attr("abs:href")));
                 }
 
             } catch (IOException e) {

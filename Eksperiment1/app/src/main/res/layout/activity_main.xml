@@ -5,35 +5,35 @@
     tools:context=".activities.MainActivity">
 
     <TextView
-        android:text="GET/POST"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="GET/POST"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/get"
-            android:text="GET"
-            android:onClick="get"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_toLeftOf="@+id/view" />
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/view"
+            android:onClick="get"
+            android:text="GET" />
 
         <View
             android:id="@+id/view"
-            android:layout_height="1dp"
             android:layout_width="0dp"
+            android:layout_height="1dp"
             android:layout_centerHorizontal="true" />
 
         <Button
             android:id="@+id/post"
-            android:text="POST"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_toRightOf="@+id/view" />
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/view"
+            android:text="POST" />
     </RelativeLayout>
 </LinearLayout>

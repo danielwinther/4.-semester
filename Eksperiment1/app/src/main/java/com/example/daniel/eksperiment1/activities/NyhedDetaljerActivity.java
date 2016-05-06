@@ -31,10 +31,10 @@ public class NyhedDetaljerActivity extends Activity {
         super.onStart();
 
         link = getIntent().getStringExtra("nyhed");
-        new NyhedDetaljer().execute();
+        new NyhedDetaljerAsync().execute();
     }
 
-    private class NyhedDetaljer extends AsyncTask<Void, Void, Void> {
+    private class NyhedDetaljerAsync extends AsyncTask<Void, Void, Void> {
         private String titel, udgivelsesdato, broedtekst, forfatter, billede, indhold;
 
         @Override

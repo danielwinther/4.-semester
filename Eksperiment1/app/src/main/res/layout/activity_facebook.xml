@@ -16,10 +16,11 @@
 
         <EditText
             android:id="@+id/email"
-            android:hint="E-mail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/view"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
             android:singleLine="true"
             android:text="danielwinther@hotmail.dk" />
 
@@ -31,12 +32,13 @@
 
         <EditText
             android:id="@+id/password"
-            android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/view"
+            android:hint="Password"
             android:password="true"
             android:singleLine="true" />
+        
     </RelativeLayout>
 
     <Button

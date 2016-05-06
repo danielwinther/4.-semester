@@ -37,10 +37,10 @@ public class KategoriActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        new Kategorier().execute();
+        new KategoriAsync().execute();
     }
 
-    private class Kategorier extends AsyncTask<Void, Void, Void> {
+    private class KategoriAsync extends AsyncTask<Void, Void, Void> {
         private ArrayList<Kategori> arrayList = new ArrayList<>();
 
         @Override

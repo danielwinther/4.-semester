@@ -42,10 +42,10 @@ public class BlogActivity extends Activity {
     protected void onStart() {
         super.onStart();
 
-        new Blog().execute();
+        new BlogindlaegAsync().execute();
     }
 
-    private class Blog extends AsyncTask<Void, Void, Void> {
+    private class BlogindlaegAsync extends AsyncTask<Void, Void, Void> {
         private String title, billedeUrl;
         private ArrayList<Blogindlaeg> arrayList = new ArrayList<>();
 

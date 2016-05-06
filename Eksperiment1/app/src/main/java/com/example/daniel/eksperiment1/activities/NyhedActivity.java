@@ -40,10 +40,10 @@ public class NyhedActivity extends Activity {
         super.onStart();
 
         link = getIntent().getStringExtra("kategori");
-        new Nyheder().execute();
+        new NyhedAsync().execute();
     }
 
-    private class Nyheder extends AsyncTask<Void, Void, Void> {
+    private class NyhedAsync extends AsyncTask<Void, Void, Void> {
         private String title;
         private ArrayList<Nyhed> arrayList = new ArrayList<>();
 
