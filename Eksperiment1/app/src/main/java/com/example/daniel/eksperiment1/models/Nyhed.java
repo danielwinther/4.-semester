@@ -1,11 +1,7 @@
 package com.example.daniel.eksperiment1.models;
 
 public class Nyhed {
-    private String titel;
-    private String udgivelsesdato;
-    private String broedtekst;
-    private String billede;
-    private String link;
+    private String titel, udgivelsesdato, broedtekst, billede, link;
 
     public Nyhed(String titel, String udgivelsesdato, String broedtekst, String billede, String link) {
         this.titel = titel;

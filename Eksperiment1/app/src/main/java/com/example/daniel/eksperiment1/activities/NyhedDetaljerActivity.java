@@ -13,7 +13,6 @@ import com.squareup.picasso.Picasso;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 
@@ -36,12 +35,7 @@ public class NyhedDetaljerActivity extends Activity {
     }
 
     private class NyhedDetaljer extends AsyncTask<Void, Void, Void> {
-        private Element titel;
-        private Element udgivelsesdato;
-        private Element broedtekst;
-        private Element forfatter;
-        private Element billede;
-        private Element indhold;
+        private String titel, udgivelsesdato, broedtekst, forfatter, billede, indhold;
 
         @Override
         protected void onPreExecute() {
@@ -57,12 +51,12 @@ public class NyhedDetaljerActivity extends Activity {
         protected Void doInBackground(Void... params) {
             try {
                 Document document = Jsoup.connect(link).get();
-                titel = document.getElementsByTag("h1").first();
-                udgivelsesdato = document.getElementsByClass("blog-dateline").first();
-                broedtekst = document.getElementsByClass("subheader").first();
-                billede = document.select(".pane-content img").first();
-                forfatter = document.getElementsByClass("byline-author").first();
-                indhold = document.select(".panel-pane .node").first();
+                titel = document.getElementsByTag("h1").first().text();
+                udgivelsesdato = document.getElementsByClass("blog-dateline").first().text();
+                broedtekst = document.getElementsByClass("subheader").first().text();
+                billede = document.select(".pane-content img").first().attr("abs:src");
+                forfatter = document.getElementsByClass("byline-author").first().text();
+                indhold = document.select(".panel-pane .node").first().text();
             } catch (IOException e) {
                 Log.e("error", e.toString());
             }
@@ -78,14 +72,14 @@ public class NyhedDetaljerActivity extends Activity {
             TextView forfatterTextView = (TextView) findViewById(R.id.forfatterDetaljer);
             TextView indholdTextView = (TextView) findViewById(R.id.indholdDetaljer);
 
-            titelTextView.setText(titel.text());
-            udgivelsesdatoTextView.setText(udgivelsesdato.text());
-            broedtekstTextView.setText(broedtekst.text());
+            titelTextView.setText(titel);
+            udgivelsesdatoTextView.setText(udgivelsesdato);
+            broedtekstTextView.setText(broedtekst);
             if (billede != null) {
-                Picasso.with(getApplicationContext()).load(billede.attr("abs:src")).into(billedeTextView);
+                Picasso.with(getApplicationContext()).load(billede).into(billedeTextView);
             }
-            forfatterTextView.setText(forfatter.text());
-            indholdTextView.setText(indhold.text());
+            forfatterTextView.setText(forfatter);
+            indholdTextView.setText(indhold);
 
             progressDialog.dismiss();
         }

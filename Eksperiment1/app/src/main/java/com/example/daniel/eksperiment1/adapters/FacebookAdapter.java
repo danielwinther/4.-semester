@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.daniel.eksperiment1.R;
 import com.example.daniel.eksperiment1.models.Facebook;
-import com.example.daniel.eksperiment1.models.Nyhed;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -2,25 +2,18 @@ package com.example.daniel.eksperiment1.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.daniel.eksperiment1.R;
 import com.example.daniel.eksperiment1.adapters.FacebookAdapter;
-import com.example.daniel.eksperiment1.models.Blogindlaeg;
 import com.example.daniel.eksperiment1.models.Facebook;
-import com.squareup.picasso.Picasso;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -46,9 +39,7 @@ public class FacebookActivity extends Activity {
     }
 
     private class FacebookVenner extends AsyncTask<Void, Void, Void> {
-        private String title;
-        private String email;
-        private String password;
+        private String title, email, password;
         private ArrayList<Facebook> arrayList = new ArrayList<>();
 
         @Override

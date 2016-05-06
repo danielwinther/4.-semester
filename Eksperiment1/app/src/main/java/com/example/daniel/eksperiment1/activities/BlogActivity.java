@@ -1,4 +1,4 @@
-﻿package com.example.daniel.eksperiment1.activities;
+package com.example.daniel.eksperiment1.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,9 +16,6 @@ import android.widget.TextView;
 
 import com.example.daniel.eksperiment1.R;
 import com.example.daniel.eksperiment1.models.Blogindlaeg;
-import com.example.daniel.eksperiment1.models.Facebook;
-import com.example.daniel.eksperiment1.models.Kategori;
-import com.example.daniel.eksperiment1.models.Nyhed;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.Connection;
@@ -49,10 +46,8 @@ public class BlogActivity extends Activity {
     }
 
     private class Blog extends AsyncTask<Void, Void, Void> {
-        private String title;
-        private String billedeUrl;
+        private String title, billedeUrl;
         private ArrayList<Blogindlaeg> arrayList = new ArrayList<>();
-        private ArrayList<Facebook> arrayList1 = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
@@ -84,20 +79,6 @@ public class BlogActivity extends Activity {
                     arrayList.add(new Blogindlaeg(indlaeg.getElementsByTag("h1").text(), indlaeg.getElementsByClass("entry-date").text(), indlaeg.getElementsByClass("entry-content").text(), indlaeg.select(".cat-links > a").text(), indlaeg.select("h1 > a").attr("abs:href")));
                 }
 
-                Connection.Response response1 = Jsoup.connect("https://m.facebook.com/login.php?refsrc=https%3A%2F%2Fm.facebook.com%2F&lwv=100&refid=8")
-                        .method(Connection.Method.POST)
-                        .data("_fb_noscript", "true")
-                        .execute();
-
-                Document document1 = Jsoup.connect("https://m.facebook.com/danieldk1992/friends?startindex=0")
-                        .cookies(response1.cookies())
-                        .get();
-
-                Elements venner = document1.select(".v.cb");
-                for (Element ven : venner) {
-                    arrayList1.add(new Facebook(ven.select(".v.m img").attr("abs:src"), ven.getElementsByClass("cc").text(), ven.select(".cd.ce").text(), ven.getElementsByClass("cc").attr("abs:href")));
-                }
-
             } catch (IOException e) {
                 Log.e("error", e.toString());
             }
@@ -106,8 +87,6 @@ public class BlogActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void result) {
-            Log.d("d", arrayList1.toString());
-
             TextView titleTextView = (TextView) findViewById(R.id.titleBlog);
             ImageView billede = (ImageView) findViewById(R.id.billedeBlog);
 

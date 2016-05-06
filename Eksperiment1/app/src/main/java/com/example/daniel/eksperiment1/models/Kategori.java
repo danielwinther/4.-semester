@@ -1,8 +1,7 @@
 package com.example.daniel.eksperiment1.models;
 
 public class Kategori {
-    private String titel;
-    private String link;
+    private String titel, link;
 
     public Kategori(String titel, String link) {
         this.titel = titel;

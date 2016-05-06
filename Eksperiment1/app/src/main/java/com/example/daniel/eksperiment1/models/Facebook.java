@@ -1,10 +1,7 @@
 package com.example.daniel.eksperiment1.models;
 
 public class Facebook {
-    private String billede;
-    private String navn;
-    private String tekst;
-    private String link;
+    private String billede, navn, tekst, link;
 
     public Facebook(String billede, String navn, String tekst, String link) {
         this.billede = billede;
