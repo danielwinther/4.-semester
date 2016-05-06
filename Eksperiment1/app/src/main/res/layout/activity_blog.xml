@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/layout"
+    tools:context=".activities.BlogActivity">
+
+    <TextView
+        android:id="@+id/titleBlog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/billedeBlog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        android:scaleType="fitXY" />
+
+    <ListView
+        android:id="@+id/listViewBlog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

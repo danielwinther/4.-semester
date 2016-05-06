@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/billede"
+        android:layout_width="85dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="5dp"
+        android:scaleType="fitXY" />
+    <TextView
+        android:id="@+id/titel"
+        android:layout_toRightOf="@id/billede"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/udgivelsesdato"
+        android:layout_toRightOf="@id/billede"
+        android:layout_below="@id/titel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#7a7776"
+        android:textSize="11sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/broedtekst"
+        android:layout_toRightOf="@id/billede"
+        android:layout_below="@id/udgivelsesdato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp" />
+</RelativeLayout>
