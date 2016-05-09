@@ -21,7 +21,9 @@
         <activity android:name=".activities.NyhedDetaljerActivity" />
         <activity android:name=".activities.KategoriActivity" />
         <activity android:name=".activities.BlogActivity" />
-        <activity android:name=".activities.FacebookActivity"></activity>
+        <activity android:name=".activities.FacebookActivity" />
+        <activity android:name=".activities.FronterActivity" />
+        <activity android:name=".activities.FronterLoginActivity"></activity>
     </application>
 
 </manifest>

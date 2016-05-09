@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
         menu.setHeaderTitle("POST menu");
         menu.add(0, 0, 0, "Blog");
         menu.add(0, 1, 1, "Facebook");
+        menu.add(0, 2, 2, "Fronter");
     }
 
     @Override
@@ -45,6 +46,9 @@ public class MainActivity extends Activity {
             case 1:
                 Intent intent1 = new Intent(this, FacebookActivity.class);
                 startActivity(intent1);
+                return true;
+            case 2:
+                startActivity(intent2);
                 return true;
             default:
                 return super.onContextItemSelected(item);

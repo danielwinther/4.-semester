@@ -2,28 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/layout"
-    tools:context="com.example.daniel.eksperiment1.activities.FacebookActivity">
-
-    <TextView
-        android:id="@+id/titleFacebook"
-        android:text="Facebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    tools:context="com.example.daniel.eksperiment1.activities.FronterLoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/email"
+            android:id="@+id/brugernavnFronter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/view"
-            android:hint="E-mail"
+            android:hint="Brugernavn"
             android:inputType="textEmailAddress"
             android:singleLine="true"
-            android:text="danielwinther@hotmail.dk" />
+            android:text="dani8184" />
 
         <View
             android:id="@+id/view"
@@ -32,24 +25,20 @@
             android:layout_centerHorizontal="true" />
 
         <EditText
-            android:id="@+id/password"
+            android:id="@+id/passwordFronter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/view"
             android:hint="Password"
             android:password="true"
             android:singleLine="true" />
-        
+
     </RelativeLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="login"
+        android:onClick="loginFronter"
         android:text="Login" />
-
-    <ListView
-        android:id="@+id/listViewFacebook"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 </LinearLayout>
+
