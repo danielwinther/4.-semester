@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
                 startActivity(intent1);
                 return true;
             case 2:
+                Intent intent2 = new Intent(this, FronterLoginActivity.class);
                 startActivity(intent2);
                 return true;
             default:
