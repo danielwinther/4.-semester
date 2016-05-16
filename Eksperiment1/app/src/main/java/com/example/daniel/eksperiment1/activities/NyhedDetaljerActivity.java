@@ -18,7 +18,6 @@ import java.io.IOException;
 
 public class NyhedDetaljerActivity extends Activity {
     private String link;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +34,7 @@ public class NyhedDetaljerActivity extends Activity {
     }
 
     private class NyhedDetaljerAsync extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog progressDialog;
         private String titel, udgivelsesdato, broedtekst, forfatter, billede, indhold;
 
         @Override
@@ -58,7 +58,7 @@ public class NyhedDetaljerActivity extends Activity {
                 forfatter = document.getElementsByClass("byline-author").first().text();
                 indhold = document.select(".panel-pane .node").first().text();
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }

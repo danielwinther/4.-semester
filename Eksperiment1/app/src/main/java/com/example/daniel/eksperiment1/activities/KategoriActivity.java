@@ -23,9 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class KategoriActivity extends Activity {
-
     public static final String URL = "http://videnskab.dk";
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +39,7 @@ public class KategoriActivity extends Activity {
     }
 
     private class KategoriAsync extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog progressDialog;
         private ArrayList<Kategori> arrayList = new ArrayList<>();
 
         @Override
@@ -67,7 +66,7 @@ public class KategoriActivity extends Activity {
                 arrayList.add(new Kategori(kat3.text(), kat3.attr("abs:href")));
                 arrayList.add(new Kategori(kat4.text(), kat4.attr("abs:href")));
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }

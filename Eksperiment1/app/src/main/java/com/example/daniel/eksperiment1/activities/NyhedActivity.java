@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 public class NyhedActivity extends Activity {
     private String link;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,7 @@ public class NyhedActivity extends Activity {
     }
 
     private class NyhedAsync extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog progressDialog;
         private String title;
         private ArrayList<Nyhed> arrayList = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class NyhedActivity extends Activity {
                     arrayList.add(new Nyhed(nyhed.getElementsByClass("title").text(), nyhed.getElementsByClass("publication-date").text(), nyhed.getElementsByClass("subheader").text(), nyhed.getElementsByTag("img").attr("abs:src"), nyhed.getElementsByTag("a").attr("abs:href")));
                 }
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }

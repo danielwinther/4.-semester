@@ -2,13 +2,12 @@ package com.example.daniel.eksperiment1.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -28,9 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BlogActivity extends Activity {
-
     public static final String URL = "http://danielwinther.dk/projects/4semester";
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +42,21 @@ public class BlogActivity extends Activity {
         new BlogindlaegAsync().execute();
     }
 
+    public void soeg(View view) {
+        new BlogindlaegAsync().execute();
+    }
+
     private class BlogindlaegAsync extends AsyncTask<Void, Void, Void> {
-        private String title, billedeUrl;
+        private ProgressDialog progressDialog;
+        private String title, billedeUrl, soegord;
         private ArrayList<Blogindlaeg> arrayList = new ArrayList<>();
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            EditText soegeordEditText = (EditText) findViewById(R.id.soegeordBlog);
+            soegord = soegeordEditText.getText().toString();
+
             progressDialog = new ProgressDialog(BlogActivity.this);
             progressDialog.setTitle("Blogindlæg");
             progressDialog.setMessage("Indlæser blogindlæg...");
@@ -68,9 +73,11 @@ public class BlogActivity extends Activity {
                         .data("pwd", "admin")
                         .execute();
 
-                Document document = Jsoup.connect(URL)
+                Document document = Jsoup.connect(URL + "/?s=" + soegord)
                         .cookies(response.cookies())
                         .get();
+                document.select("#s").first().val(soegord);
+                Log.d(MainActivity.DEBUG, document.select("#s").first().val());
 
                 title = document.title();
                 billedeUrl = document.select("#branding > a > img").attr("abs:src");
@@ -78,9 +85,8 @@ public class BlogActivity extends Activity {
                 for (Element indlaeg : blogindlaeg) {
                     arrayList.add(new Blogindlaeg(indlaeg.getElementsByTag("h1").text(), indlaeg.getElementsByClass("entry-date").text(), indlaeg.getElementsByClass("entry-content").text(), indlaeg.select(".cat-links > a").text(), indlaeg.select("h1 > a").attr("abs:href")));
                 }
-
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }
@@ -96,17 +102,6 @@ public class BlogActivity extends Activity {
             ListAdapter listAdapter = new ArrayAdapter(BlogActivity.this, android.R.layout.simple_list_item_1, arrayList);
             ListView listView = (ListView) findViewById(R.id.listViewBlog);
             listView.setAdapter(listAdapter);
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Blogindlaeg blogindlaeg = (Blogindlaeg) parent.getItemAtPosition(position);
-
-                    Intent intent = new Intent(getApplicationContext(), BlogActivity.class);
-                    intent.putExtra("blogindlaeg", blogindlaeg.getLink());
-                    startActivity(intent);
-                }
-            });
 
             progressDialog.dismiss();
         }

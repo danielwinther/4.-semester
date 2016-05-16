@@ -1,17 +1,14 @@
 package com.example.daniel.eksperiment1.activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.daniel.eksperiment1.R;
 import com.example.daniel.eksperiment1.models.Fronter;
@@ -24,7 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class FronterActivity extends AppCompatActivity {
-    private ProgressDialog progressDialog;
     private String mandag, tirsdag, onsdag, torsdag, fredag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +66,8 @@ public class FronterActivity extends AppCompatActivity {
         });
     }
     private class FronterAsync extends AsyncTask<Void, Void, Void> {
-        private String navn, brugernavn, password;
+        private ProgressDialog progressDialog;
+        private String navn, uge, brugernavn, password;
         private ArrayList<Fronter> arrayList = new ArrayList<>();
 
         @Override
@@ -120,23 +117,30 @@ public class FronterActivity extends AppCompatActivity {
                         .data("pubcookie_g", login.select("input[type='hidden']:nth-child(4)").val())
                         .execute();
 
-                Document dato = Jsoup.connect("https://www.easytools.dk/easj")
+                Document dokument = Jsoup.connect("https://www.easytools.dk/easj")
                         .cookies(cookie.cookies())
                         .get();
-                mandag = dato.select(".headercell:nth-child(2)").text();
-                tirsdag = dato.select(".headercell:nth-child(3)").text();
-                onsdag = dato.select(".headercell:nth-child(4)").text();
-                torsdag = dato.select(".headercell:nth-child(5)").text();
-                fredag = dato.select(".headercell:nth-child(6)").text();
+
+                navn = dokument.select("#ctl00_ContentPlaceHolder1_lblName").text();
+                uge = dokument.select("#ctl00_ContentPlaceHolder1_ddlWeek option[selected]").text();
+
+                mandag = dokument.select(".headercell:nth-child(2)").text();
+                tirsdag = dokument.select(".headercell:nth-child(3)").text();
+                onsdag = dokument.select(".headercell:nth-child(4)").text();
+                torsdag = dokument.select(".headercell:nth-child(5)").text();
+                fredag = dokument.select(".headercell:nth-child(6)").text();
 
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
+            Toast.makeText(getApplicationContext(), navn, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Uge: " + uge, Toast.LENGTH_LONG).show();
+
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
             tabLayout.getTabAt(0).setText(mandag);
             tabLayout.getTabAt(1).setText(tirsdag);

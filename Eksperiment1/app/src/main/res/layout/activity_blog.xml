@@ -19,6 +19,17 @@
         android:textAlignment="center"
         android:scaleType="fitXY" />
 
+    <EditText
+        android:id="@+id/soegeordBlog"
+        android:hint="Søgeord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:onClick="soeg"
+        android:text="Søg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ListView
         android:id="@+id/listViewBlog"
         android:layout_width="match_parent"

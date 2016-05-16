@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.daniel.eksperiment1.R;
+import com.example.daniel.eksperiment1.activities.MainActivity;
+import com.example.daniel.eksperiment1.adapters.FronterAdapter;
 import com.example.daniel.eksperiment1.models.Fronter;
 
 import org.jsoup.Connection;
@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TirsdagFragment extends Fragment {
-    private ProgressDialog progressDialog;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         new FronterAsync().execute();
@@ -36,7 +34,8 @@ public class TirsdagFragment extends Fragment {
     }
 
     private class FronterAsync extends AsyncTask<Void, Void, Void> {
-        private String navn, brugernavn, password;
+        private ProgressDialog progressDialog;
+        private String brugernavn, password;
         private ArrayList<Fronter> arrayList = new ArrayList<>();
 
         @Override
@@ -86,25 +85,42 @@ public class TirsdagFragment extends Fragment {
                         .data("pubcookie_g", login.select("input[type='hidden']:nth-child(4)").val())
                         .execute();
 
-                Document skema = Jsoup.connect("https://www.easytools.dk/easj")
+                Document skema1 = Jsoup.connect("https://www.easytools.dk/easj")
                         .cookies(cookie.cookies())
                         .get();
-                navn = skema.select("#ctl00_ContentPlaceHolder1_lblName").text();
 
-                Elements mandag = skema.select(".emptySkemacell:nth-child(3) .skemabrik");
-                for (Element m : mandag) {
-                    arrayList.add(new Fronter(null, m.text()));
+                Document skema = Jsoup.connect(skema1.getElementById("aspnetForm").attr("abs:action"))
+                        .data("__EVENTTARGET", "")
+                        .data("__EVENTARGUMENT", "")
+                        .data("__LASTFOCUS", "")
+                        .data("__VIEWSTATE", skema1.getElementById("__VIEWSTATE").val())
+                        .data("__VIEWSTATEGENERATOR", skema1.getElementById("__VIEWSTATEGENERATOR").val())
+                        .data("ctl00$ddlLanguageselector", "da-DK")
+                        .data("ctl00$ContentPlaceHolder1$ddlLandekoder", "DK")
+                        .data("ctl00$ContentPlaceHolder1$txtPhoneNumber", "")
+                        .data("ctl00$ContentPlaceHolder1$MobilePhoneWatermark_ClientState", "")
+                        .data("ctl00$ContentPlaceHolder1$Button2.x", "1")
+                        .data("ctl00$ContentPlaceHolder1$Button2.y", "1")
+                        .data("ctl00$ContentPlaceHolder1$ddlWeek", "18-2016")
+                        .data("ctl00$ContentPlaceHolder1$ddl_NoOWeeks", "1")
+                        .data("ctl00$ContentPlaceHolder1$HidStartDate", "")
+                        .post();
+
+                Elements scripts = skema.select(".emptySkemacell:nth-child(3) script");
+                for (Element script : scripts) {
+                    Document html = Jsoup.parse(script.html().substring(script.html().indexOf("content: '  ")).replace("content: '  ", "").split("'")[0].toString());
+                    arrayList.add(new Fronter(html.select(".popheader").text(), html.select(".tooltip tr").first().text(), html.select(".tooltip tr").first().nextElementSibling().text(), html.select(".tooltip tr").first().nextElementSibling().nextElementSibling().text()));
                 }
 
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            ListAdapter listAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, arrayList);
+            ListAdapter listAdapter = new FronterAdapter(getActivity(), arrayList);
             ListView listView = (ListView) getView().findViewById(R.id.listViewFronterTirsdag);
             listView.setAdapter(listAdapter);
             progressDialog.dismiss();

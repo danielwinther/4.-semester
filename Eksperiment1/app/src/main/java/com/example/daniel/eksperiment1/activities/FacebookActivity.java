@@ -19,14 +19,12 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class FacebookActivity extends Activity {
     public static final String URL = "https://m.facebook.com";
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +37,7 @@ public class FacebookActivity extends Activity {
     }
 
     private class FacebookAsync extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog progressDialog;
         private String title, email, password;
         private ArrayList<Facebook> arrayList = new ArrayList<>();
 
@@ -71,13 +70,25 @@ public class FacebookActivity extends Activity {
                         .cookies(response.cookies())
                         .get();
                 title = document.title();
-                Elements venner = document.select(".v.cb");
-                for (Element ven : venner) {
-                    arrayList.add(new Facebook(ven.select(".v.m img").attr("abs:src"), ven.getElementsByClass("cc").text(), ven.select(".cd.ce").text(), ven.getElementsByClass("cc").attr("abs:href")));
-                }
 
+                while (true) {
+                    try {
+                        String url = document.select("#m_more_friends > a").attr("abs:href");
+
+                        for (Element ven : document.select(".v.cb, .v.bm")) {
+                            arrayList.add(new Facebook(ven.select(".v.m img").attr("abs:src"), ven.select(".cc, .bo").text(), ven.select(".cd.ce, .bp.bq").text(), ven.select(".cc, .bo").attr("abs:href")));
+                        }
+                        if (url != null) {
+                            document = Jsoup.connect(url).cookies(response.cookies()).get();
+                        } else {
+                            break;
+                        }
+                    } catch (IllegalArgumentException ex) {
+                        break;
+                    }
+                }
             } catch (IOException e) {
-                Log.e("error", e.toString());
+                Log.e(MainActivity.ERROR, e.toString());
             }
             return null;
         }

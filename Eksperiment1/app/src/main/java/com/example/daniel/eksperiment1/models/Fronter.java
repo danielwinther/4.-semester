@@ -1,23 +1,29 @@
 package com.example.daniel.eksperiment1.models;
 
 public class Fronter {
-    private String tid, fag;
+    private String fag, tid, lokale, underviser;
 
-    public Fronter(String tid, String fag) {
-        this.tid = tid;
+    public Fronter(String fag, String tid, String lokale, String underviser) {
         this.fag = fag;
-    }
-
-    public String getTid() {
-        return tid;
+        this.tid = tid;
+        this.lokale = lokale;
+        this.underviser = underviser;
     }
 
     public String getFag() {
         return fag;
     }
 
-    @Override
-    public String toString() {
-        return fag;
+    public String getTid() {
+        return tid;
     }
+
+    public String getLokale() {
+        return lokale;
+    }
+
+    public String getUnderviser() {
+        return underviser;
+    }
+
 }
