@@ -66,20 +66,24 @@ public class FacebookActivity extends Activity {
                         .data("_fb_noscript", "true")
                         .execute();
 
-                Document document = Jsoup.connect(URL + "/danieldk1992/friends?startindex=0")
+                Document forside = Jsoup.connect(URL)
                         .cookies(response.cookies())
                         .get();
-                title = document.title();
+                Document venner = Jsoup.connect(forside.select("#header > div > a:nth-child(2)").attr("abs:href").split("\\?")[0] + "/friends")
+                        .cookies(response.cookies())
+                        .get();
+
+                title = venner.title();
 
                 while (true) {
                     try {
-                        String url = document.select("#m_more_friends > a").attr("abs:href");
+                        String url = venner.select("#m_more_friends > a").attr("abs:href");
 
-                        for (Element ven : document.select(".v.cb, .v.bm")) {
-                            arrayList.add(new Facebook(ven.select(".v.m img").attr("abs:src"), ven.select(".cc, .bo").text(), ven.select(".cd.ce, .bp.bq").text(), ven.select(".cc, .bo").attr("abs:href")));
+                        for (Element ven : venner.select("#root .l")) {
+                            arrayList.add(new Facebook(ven.select("td:nth-child(1) img").attr("abs:src"), ven.select("td:nth-child(2) a").text(), ven.select("td:nth-child(2) div:nth-child(2)").text(), ven.select("td:nth-child(1) a").attr("abs:href")));
                         }
                         if (url != null) {
-                            document = Jsoup.connect(url).cookies(response.cookies()).get();
+                            venner = Jsoup.connect(url).cookies(response.cookies()).get();
                         } else {
                             break;
                         }
