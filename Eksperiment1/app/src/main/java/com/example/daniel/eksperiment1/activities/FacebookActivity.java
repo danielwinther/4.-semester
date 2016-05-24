@@ -82,11 +82,8 @@ public class FacebookActivity extends Activity {
                         for (Element ven : venner.select("#root .l")) {
                             arrayList.add(new Facebook(ven.select("td:nth-child(1) img").attr("abs:src"), ven.select("td:nth-child(2) a").text(), ven.select("td:nth-child(2) div:nth-child(2)").text(), ven.select("td:nth-child(1) a").attr("abs:href")));
                         }
-                        if (url != null) {
-                            venner = Jsoup.connect(url).cookies(response.cookies()).get();
-                        } else {
-                            break;
-                        }
+                        venner = Jsoup.connect(url).cookies(response.cookies()).get();
+
                     } catch (IllegalArgumentException ex) {
                         break;
                     }
