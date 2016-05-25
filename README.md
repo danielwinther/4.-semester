@@ -3,3 +3,4 @@ Dette repository indeholder eksperimenter fra min 4. semestereksamen. Eksperimen
 
 ## Afgrænsning
 Eksperimenterne dækker over brugen af kodebiblioteket [JSOUP](https://jsoup.org/).
+![jsoup](http://i.imgur.com/swbpEUA.png)
