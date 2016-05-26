@@ -138,9 +138,6 @@ public class FronterActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            Toast.makeText(getApplicationContext(), navn, Toast.LENGTH_LONG).show();
-            Toast.makeText(getApplicationContext(), "Uge: " + uge, Toast.LENGTH_LONG).show();
-
             TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
             tabLayout.getTabAt(0).setText(mandag);
             tabLayout.getTabAt(1).setText(tirsdag);
@@ -149,6 +146,9 @@ public class FronterActivity extends AppCompatActivity {
             tabLayout.getTabAt(4).setText(fredag);
 
             progressDialog.dismiss();
+
+            Toast.makeText(getApplicationContext(), navn, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Uge: " + uge, Toast.LENGTH_LONG).show();
         }
     }
 }
